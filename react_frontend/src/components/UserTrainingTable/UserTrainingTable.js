@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AdminService from '../../services/AdminService';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const UserTrainingTable = () => {
     const cookies = new Cookies();
@@ -43,71 +45,96 @@ const UserTrainingTable = () => {
         setSkills(updatedSkills);
     };
 
+    const handleSubmit = () => {
+        const skillSet = {
+            skills,
+        };
+
+        axios.post('http://localhost:8080/Skills', skillSet)
+        .then((response) => {
+        console.log('Skills added', response.data);
+        // Handle any further actions after successful skill submission
+        toast.success('Skills submitted successfully');
+        })
+        .catch((error) => {
+            console.error('Error adding skills:', error);
+            if (error.response) {
+                console.error('Response Data:', error.response.data);
+                console.error('Response Status:', error.response.status);
+            }
+            // Handle error cases
+            toast.error('Error submitting skills');
+        });
+    };
+
     return (
         <div>
             <div className="large-screen-nav">
                 <SideNav />
             </div>
-            <div>
-                <h1 className="lbheading"><strong>Learning and Development</strong></h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Fullname</th>
-                            <th>Employee Id</th>
-                            <th>Email</th>
-                            <th>Designation</th>
-                            <th>Mobile</th>
-                            <th>Blood Group</th>
-                            <th>Address</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* Display user details if userDetails is not null */}
-                        {userDetails && (
-                            <tr key={userDetails.Id}>
-                                <td>{userDetails.Id}</td>
-                                <td>{userDetails.FullName}</td>
-                                <td>{userDetails.EmployeeId}</td>
-                                <td>{userDetails.Email}</td>
-                                <td>{userDetails.Designation}</td>
-                                <td>{userDetails.Mobile}</td>
-                                <td>{userDetails.BloodGroup}</td>
-                                <td>{userDetails.Address}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-                <form>
-                    <div className='add-skill'>
-                        <label>Add Your Skills</label>
-                        <button
-                            className="add-skill-button"
-                            type="button"
-                            onClick={handleAddSkill}
-                        >
-                            +
-                        </button>
-                        {skills.map((skill, index) => (
-                            <div key={index} className="skill-row">
-                                <input
-                                    type="text"
-                                    className='skill-text-feild'
-                                    value={skill}
-                                    onChange={(e) => handleSkillChange(e, index)}
-                                />
-                                <button
-                                    className="remove-skill-button"
-                                    type="button"
-                                    onClick={() => handleRemoveSkill(index)}
-                                >
-                                    <img className='delete-image' src='https://static-00.iconduck.com/assets.00/delete-emoji-409x512-y77jpzk2.png' alt='delete' />
-                                </button>
-                            </div>
-                        ))}
+            <h1 className="lbheading"><strong>Learning and Development</strong></h1>
+            {userDetails && (
+                <div className="profile-card">
+                    <div className="profile-header">
+                        <h2>{userDetails.FullName}</h2>
+                        <p>{userDetails.Designation}</p>
                     </div>
-                </form>
+                    <div className="profile-details">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Email:</td>
+                                    <td>{userDetails.Email}</td>
+                                </tr>
+                                <tr>
+                                    <td>Employee ID:</td>
+                                    <td>{userDetails.EmployeeId}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile:</td>
+                                    <td>{userDetails.Mobile}</td>
+                                </tr>
+                                <tr>
+                                    <td>Blood Group:</td>
+                                    <td>{userDetails.BloodGroup}</td>
+                                </tr>
+                                <tr>
+                                    <td>Address:</td>
+                                    <td>{userDetails.Address}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+            <div className='add-skill'>
+                <label>Add Your Skills</label>
+                <button
+                    className="add-skill-button"
+                    type="button"
+                    onClick={handleAddSkill}
+                >
+                    +
+                </button>
+                {skills.map((skill, index) => (
+                    <div key={index} className="skill-row">
+                        <input
+                            type="text"
+                            className='skill-text-feild'
+                            value={skill}
+                            placeholder={`Skill ${index + 1}`}
+                            onChange={(e) => handleSkillChange(e, index)}
+                        />
+                        <button
+                            className="remove-skill-button"
+                            type="button"
+                            onClick={() => handleRemoveSkill(index)}
+                        >
+                            <img className='delete-image' src='https://static-00.iconduck.com/assets.00/delete-emoji-409x512-y77jpzk2.png' alt='delete' />
+                        </button>
+                    </div>
+                ))}
+                <button onClick={handleSubmit} className="skill-submit-button">Submit Skills</button>
             </div>
         </div>
     );

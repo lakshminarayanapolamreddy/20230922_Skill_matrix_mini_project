@@ -179,3 +179,48 @@ body{
 .profile-container{
     display: flex;
 }
+
+/* UserTrainingTable.css */
+
+/* Profile Card */
+.profile-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-header h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .profile-header p {
+    font-size: 16px;
+    color: #888;
+    margin: 0;
+  }
+  
+  /* Profile Details Table */
+  .profile-details table {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .profile-details td {
+    padding: 8px 0;
+  }
+  
+  /* Skill Section */
+  .add-skill {
+    margin-top: 20px;
+  }
+  
+  
