@@ -1,0 +1,181 @@
+body{
+    display: flex;
+    justify-content: space-around;
+    height: 100vh;
+}
+.sign-in-container{
+    margin-top: 5% !important;
+    
+}
+.Sign-up{
+    width: 380px;
+    margin-top: 0;
+}
+.title{
+    margin-top: 0;
+    text-align: center;
+    color: #19105B;
+}
+.name,.empid,.email,.password,.designation,.mobile,.bldgrp,.address{
+    background: none;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: 101%;
+    margin-top: 3%;
+}
+.name-input-feild,
+.emp-input-feild,
+.email-input-feild,
+.password-input-feild,
+.designation-input-feild,
+.mobile-input-feild,
+.bld-grp-input-feild,
+.Address-input-feild{
+    border: none;
+    background: #F7F9FB !important;
+    width: 100%;
+    height: 35px !important;
+    margin-top: 10px;
+}
+.name-input-feild:focus,
+.emp-input-feild:focus,
+.email-input-feild:focus,
+.password-input-feild:focus,
+.designation-input-feild:focus,
+.mobile-input-feild:focus,
+.bld-grp-input-feild:focus,
+.Address-input-feild:focus{
+    border: none;
+    background: white !important;
+    border: 1px solid #2b7c97;
+    outline: none;
+    border-radius: 3px !important;
+}
+.name-input-feild::placeholder,
+.emp-input-feild::placeholder,
+.email-input-feild::placeholder,
+.password-input-feild::placeholder,
+.designation-input-feild::placeholder,
+.mobile-input-feild::placeholder,
+.bld-grp-input-feild::placeholder,
+.Address-input-feild::placeholder{
+    color: #2b7c97;
+    font-size: 14px;
+}
+.name-input-feild::after,
+.emp-input-feild::after,
+.email-input-feild::after,
+.password-input-feild::after,
+.designation-input-feild::after,
+.mobile-input-feild::after,
+.bld-grp-input-feild::after,
+.Address-input-feild::after {
+    content: '*';
+    color: red;
+    margin-left: 3px; /* Adjust spacing between the input text and the asterisk */
+}
+
+.submit{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 40px;
+    margin-top: 3%;
+    cursor: pointer;
+}
+.sign-in-button{
+    background-color:#19105B !important;
+    border: 1px solid #19105B !important;
+    border-radius: 3px;
+    color: white;
+}
+.sign-up-button{
+    background-color: #19105B!important;
+    border: 1px solid #19105B !important;
+    border-radius: 3px;
+    color: white;
+    height: 35px;
+    width: 100% !important;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 2%;
+}
+.sign-up-button:hover{
+    background-color:#F7F9FB!important;
+    border: 1px solid #19105B !important;
+    border-radius: 3px;
+    color:#19105B;
+    height: 35px;
+    width: 100% !important;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 2%;
+}
+.add-skill{
+    margin-top: 5%;
+}
+.add-skill label{
+    color: #2b7c97 !important;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.add-skill-button,
+.remove-skill-button{
+    color:#FF6196;
+    background: none;
+    border: none;
+   font-size: 30px;
+   cursor: pointer;
+   font-weight: 250 !important;
+}
+.button{
+    cursor:pointer
+}
+.delete-image{
+    margin-left: 20%;
+    height: 25px;
+    height: 20px;
+    color: #FF6196;
+}
+.skill-text-feild {
+    width: 60%;
+    height: 22px;
+    border: 1px solid #2b7c97;
+    background: #F7F9FB;
+    border-radius: 2px;
+    transition: all 0.2s; 
+}
+
+.skill-text-feild:focus {
+    border: 1px solid #2b7c97;
+    background: white;
+    outline: none;
+}
+
+#list-div{
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
+}
+#list a{
+    text-decoration: none !important;
+    color: #ffffff;
+    font-family: "Arial" !important;
+    font-size: 12px;
+}
+.side-nav-bar{
+    background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
+}
+.page-title{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #19105B;
+    text-align: left;
+}
+.profile-container{
+    display: flex;
+}

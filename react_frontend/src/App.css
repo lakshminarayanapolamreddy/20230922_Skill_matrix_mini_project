@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*for admin2.js*/
+/* #list{
+  max-height: 80vh; /* Set a maximum height for the sidebar, adjust as needed */
+  /*overflow-y: auto;  Enable vertical scrolling when content exceeds max-height */
+  /* padding: 0;
+} */
+#list {
+  height:100vh; /* Use 100% to ensure it takes up the available height */
+  display: table-row;
+  color: #333; 
+ 
+   /* Remove any additional padding that may cause gaps */
+}
+#list-div{
+  text-decoration: none;
+  background-color:#61dafb;
+  padding: 25px;
+  color: #333; 
+}
+
+/* Style for the list items within the sidebar */
+/* #list Link {
+  display: block;
+ 
+  color: #333; 
+  text-decoration: none;
+  transition: background-color 0.3s; 
+} */
+
+
+/* signup form design*/
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
