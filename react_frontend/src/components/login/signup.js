@@ -1,6 +1,8 @@
 import { toast } from 'react-toastify';
 import LoginService from "../../services/LoginService";
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 function SignUpForm() {
   const [state, setState] = useState({
     name: "",
@@ -9,24 +11,10 @@ function SignUpForm() {
     password: "",
     designation: "",
     mobile: "",
-    empid:"",
     address:"",
     blood_group:"",
   });
-  const [skills, setSkills] = useState([]);
-  const handleAddSkill = () => {
-    setSkills([...skills, ""]);
-  };
-  const handleRemoveSkill = (index) => {
-    const updatedSkills = [...skills];
-    updatedSkills.splice(index, 1);
-    setSkills(updatedSkills);
-  };
-  const handleSkillChange = (event, index) => {
-    const updatedSkills = [...skills];
-    updatedSkills[index] = event.target.value;
-    setSkills(updatedSkills);
-  }
+
   const handleChange = evt => {
     const value = evt.target.value;
     setState({
@@ -35,34 +23,57 @@ function SignUpForm() {
     });
   };
 
-  const handleOnSubmit = evt => {
+  const navigate = useNavigate();
+
+  const handleOnSubmit = async evt => {
     evt.preventDefault();
     console.log(state);
-    let data= LoginService.saveDetails(state).then((d)=>{
-      if (d.data.message==="User added"){
-        toast.success(d.data.message);
-      } else if (d.data.message==="Password must have a capital letter a small letter and a number and include any special character"){
-        toast.warning(d.data.message);
-      } else if (d.data.message=== "In email domain name should contain jmangroup"){
-        toast.error(d.data.message);
-      } else if (d.data.message=== "User already exists!"){
-        toast.error(d.data.message);
-      } else if (d.data.message=== "All fields are mandatory ; Please fill it."){
-        toast.warning(d.data.message);
-      } else if (d.data.message=== "Invalid Employee Id"){
-        toast.error(d.data.message)
+    
+    try {
+      const response = await LoginService.saveDetails(state);
+      
+      switch (response.data.message) {
+        case "User added":
+          toast.success(response.data.message);
+          navigate('/signin');
+          break;
+        case "Password must have a capital letter a small letter and a number and include any special character":
+          toast.warning(response.data.message);
+          break;
+        case "In email domain name should contain jmangroup":
+          toast.error(response.data.message);
+          break;
+        case "User already exists!":
+          toast.error(response.data.message);
+          break;
+        case "All fields are mandatory; Please fill them.":
+          toast.warning(response.data.message);
+          break;
+        case "Invalid Employee Id":
+          toast.error(response.data.message);
+          break;
+        default:
+          // Handle other cases if needed
+          break;
       }
-    })
-    .catch(err=>{
-      toast.error("Email And Password is not matching")
-    })
-    for (const key in state) {
+
+      // Clear the form fields after submission
       setState({
-        ...state,
-        [key]: ""
+        name: "",
+        empid:"",
+        email: "",
+        password: "",
+        designation: "",
+        mobile: "",
+        address:"",
+        blood_group:"",
       });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Email and Password do not match");
     }
   };
+
   return (
     <div className="Sign-up">
       <form onSubmit={handleOnSubmit}>
@@ -114,8 +125,8 @@ function SignUpForm() {
         <div className='designation'>
           <input 
             type='text' 
-            name = 'designation'
-            value = {state.designation}
+            name='designation'
+            value={state.designation}
             onChange={handleChange}
             placeholder='Designation*' 
             className='designation-input-feild'
@@ -125,7 +136,7 @@ function SignUpForm() {
         <div className='mobile'>
           <input
             type='text'
-            name = 'mobile'
+            name='mobile'
             value={state.mobile}
             placeholder='Mobile*'
             className='mobile-input-feild'
@@ -154,34 +165,7 @@ function SignUpForm() {
             className="Address-input-feild"
           />
         </div>
-        <div className='add-skill'>
-          <label>Add Your Skills</label>
-            <button
-              className="add-skill-button"
-              type="button"
-              onClick={handleAddSkill}
-            >
-              +
-            </button>
-            {skills.map((skill, index) => (
-              <div key={index} className="skill-row">
-                <input
-                  type="text"
-                  className='skill-text-feild'
-                  value={skill}
-                  onChange={(e) => handleSkillChange(e, index)}
-                />
-                <button
-                  className="remove-skill-button"
-                  type="button"
-                  onClick={() => handleRemoveSkill(index)}
-                >
-                  <img class = 'delete-image' src = 'https://static-00.iconduck.com/assets.00/delete-emoji-409x512-y77jpzk2.png' />
-                </button>
-              </div>
-            ))}
-          </div>
-        <div className='submit'><button type = 'submit' className = 'sign-up-button'>Sign Up</button></div>
+        <div className='submit'><button type='submit' className='sign-up-button'>Sign Up</button></div>
       </form>
     </div>
   );

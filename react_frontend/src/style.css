@@ -2,14 +2,23 @@ body{
     display: flex;
     justify-content: space-around;
     height: 100vh;
+    
+}
+#root{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10%;
 }
 .sign-in-container{
     margin-top: 5% !important;
-    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 25%;
 }
 .Sign-up{
     width: 380px;
-    margin-top: 0;
+    margin-top: 20%;
 }
 .title{
     margin-top: 0;
@@ -25,6 +34,27 @@ body{
     height: 40px;
     width: 101%;
     margin-top: 3%;
+}
+.email-input-feild-signin,
+.password-input-feild-signin{
+    border: none;
+    background: #F7F9FB !important;
+    width: 100%;
+    height: 35px !important;
+    margin-top: 5%;
+}
+.email-input-feild-signin:focus,
+.password-input-feild-signin:focus{
+    border: none;
+    background: white !important;
+    border: 1px solid #2b7c97;
+    outline: none;
+    border-radius: 3px !important;
+}
+.email-input-feild-signin::placeholder,
+.password-input-feild-signin::placeholder{
+    color: #2b7c97;
+    font-size: 14px;
 }
 .name-input-feild,
 .emp-input-feild,
@@ -91,7 +121,12 @@ body{
     border: 1px solid #19105B !important;
     border-radius: 3px;
     color: white;
+    margin-top: 5%;
+    width: 100%;
+    height: 35px;
+    text-transform: uppercase;
 }
+
 .sign-up-button{
     background-color: #19105B!important;
     border: 1px solid #19105B !important;
@@ -115,6 +150,12 @@ body{
     text-decoration: none;
     text-transform: uppercase;
     margin-top: 2%;
+}
+.sign-in-button:hover{
+    background-color:#F7F9FB!important;
+    border: #19105B;
+    color: #19105B;
+    text-transform: uppercase;
 }
 .add-skill{
     margin-top: 5%;
@@ -173,54 +214,9 @@ body{
 }
 .page-title{
     font-family: Arial, Helvetica, sans-serif;
-    color: #19105B;
+    color: #19105B  !important;
     text-align: left;
 }
 .profile-container{
     display: flex;
 }
-
-/* UserTrainingTable.css */
-
-/* Profile Card */
-.profile-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    width: 100%;
-    margin: 0 auto;
-  }
-  
-  .profile-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .profile-header h2 {
-    font-size: 24px;
-    margin: 0;
-  }
-  
-  .profile-header p {
-    font-size: 16px;
-    color: #888;
-    margin: 0;
-  }
-  
-  /* Profile Details Table */
-  .profile-details table {
-    width: 100%;
-    font-size: 16px;
-    margin-top: 20px;
-  }
-  
-  .profile-details td {
-    padding: 8px 0;
-  }
-  
-  /* Skill Section */
-  .add-skill {
-    margin-top: 20px;
-  }
-  
-  

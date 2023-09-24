@@ -52,7 +52,7 @@ function SignInForm() {
           name="email"
           value={state.email}
           onChange={handleChange}
-          className="email-input-feild"
+          className="email-input-feild-signin"
         />
         <input
           type="password"
@@ -60,7 +60,7 @@ function SignInForm() {
           placeholder="Password"
           value={state.password}
           onChange={handleChange}
-          className="password-input-feild"
+          className="password-input-feild-signin"
         />
         <button className="sign-in-button">Sign In</button>
       </form>
