@@ -5,8 +5,6 @@ const {Sequelize,DataTypes}=require("sequelize");
 const db={};
 dotenv.config()
 const client= new sql.Client({ user: dbconfig.USER, password: dbconfig.PASSWORD })
-
-
 // Connect to the PostgreSQL database
 client.connect()
   .then(() => {
@@ -17,8 +15,6 @@ client.connect()
     console.error('Error connecting to PostgreSQL database:', err);
   });
     
-
- 
 const sequelize=new Sequelize(
     dbconfig.DATABASE,
     dbconfig.USER,
@@ -39,13 +35,8 @@ const sequelize=new Sequelize(
 
 db.sequelize=sequelize;
 
-db.UserAdminRegTable=require("./UserAdminRegistrations")(sequelize,DataTypes);
-db.TrainingTable=require("./TrainingDetails")(sequelize,DataTypes);
-db.UserTRegTable=require("./UserTrainingRegistrations")(sequelize,DataTypes);
-
-
-
-
+db.UserAdminRegTable=require("./UserAdminRegistrations")(sequelize,DataTypes)
+db.Skills=require("./skills")(sequelize,DataTypes)
 db.sequelize.sync({force:false}).then(()=>{
     console.log("re-sync-done")
 })

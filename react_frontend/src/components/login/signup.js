@@ -1,20 +1,12 @@
+//react_frontend\src\components\login\signup.js
 import { toast } from 'react-toastify';
 import LoginService from "../../services/LoginService";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
-  const [state, setState] = useState({
-    name: "",
-    empid:"",
-    email: "",
-    password: "",
-    designation: "",
-    mobile: "",
-    address:"",
-    blood_group:"",
-  });
-
+  const navigate = useNavigate();
+  const [state, setState] = useState({});
   const handleChange = evt => {
     const value = evt.target.value;
     setState({
@@ -23,55 +15,35 @@ function SignUpForm() {
     });
   };
 
-  const navigate = useNavigate();
-
-  const handleOnSubmit = async evt => {
+  const handleOnSubmit = evt => {
     evt.preventDefault();
-    console.log(state);
-    
-    try {
-      const response = await LoginService.saveDetails(state);
-      
-      switch (response.data.message) {
-        case "User added":
-          toast.success(response.data.message);
-          navigate('/signin');
-          break;
-        case "Password must have a capital letter a small letter and a number and include any special character":
-          toast.warning(response.data.message);
-          break;
-        case "In email domain name should contain jmangroup":
-          toast.error(response.data.message);
-          break;
-        case "User already exists!":
-          toast.error(response.data.message);
-          break;
-        case "All fields are mandatory; Please fill them.":
-          toast.warning(response.data.message);
-          break;
-        case "Invalid Employee Id":
-          toast.error(response.data.message);
-          break;
-        default:
-          // Handle other cases if needed
-          break;
-      }
-
-      // Clear the form fields after submission
-      setState({
-        name: "",
+    let data= LoginService.saveDetails(state).then((d)=>{
+      if (d.data.message==="User added"){
+        toast.success(d.data.message);
+        navigate('/signin')
+        setState({ 
+        name: "", 
         empid:"",
         email: "",
-        password: "",
-        designation: "",
-        mobile: "",
-        address:"",
-        blood_group:"",
+        password: "", 
+        designation: "", 
+        mobile: "", 
+        address:"", 
+        blood_group:"", 
       });
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("Email and Password do not match");
-    }
+      }else if (d.data.message==="Password must have a capital letter a small letter and a number and include any special character"){
+        toast.warning(d.data.message);
+      }else if (d.data.message=== "In email domain name should contain jmangroup and only small letters"){
+        toast.error(d.data.message);
+      }else if (d.data.message=== "User already exists!"){
+        toast.error(d.data.message);
+      } else if (d.data.message=== "All fields are mandatory ; Please fill it."){
+        toast.warning(d.data.message);
+      }
+    })
+    .catch(err=>{
+      toast.error("Email And Password is not matching")
+    })
   };
 
   return (

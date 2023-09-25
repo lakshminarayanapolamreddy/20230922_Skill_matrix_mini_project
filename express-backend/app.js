@@ -1,3 +1,4 @@
+//C:\Users\PolamreddyLakshmiNar\Desktop\20230922_Skill_matrix_mini_project\express-backend\app.js
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,7 +7,9 @@ var logger = require('morgan');
 var cors=require('cors');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
+const skillsRoutes = require('./routes/skills');
 var app = express();
+const getRouter = require('./routes/admin')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,23 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
-
-console.log("0.INside app.js");
-
 // All Custom Routers
 var userRouter = require('./routes/registration'); 
 var login=require('./routes/login');
-var adminportal=require('./routes/admin')
-var userportal=require("./routes/users")
-
+app.use('/skills', skillsRoutes);
 app.use('/', userRouter);
 app.use('/loginDetails',login)
-app.use("/admin",adminportal);
-app.use("/users",userportal);
-
-console.log("1.INside app.js");
-
-
+app.use('/admin',getRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -52,3 +45,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+

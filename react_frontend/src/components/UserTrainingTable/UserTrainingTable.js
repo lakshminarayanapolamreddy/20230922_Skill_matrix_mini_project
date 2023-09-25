@@ -1,3 +1,4 @@
+// react_frontend/src/components/UserTrainingTable/UserTrainingTable.js
 import React, { useState, useEffect } from 'react';
 import './UserTrainingTable.css';
 import SideNav from '../side_nav/side_nav';
@@ -5,13 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AdminService from '../../services/AdminService';
 import Cookies from 'universal-cookie';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const UserTrainingTable = () => {
     const cookies = new Cookies();
     const Email = cookies.get("Email");
-    const [userDetails, setUserDetails] = useState(null);
+    const [userDetails, setUserDetails] = useState({});
+
     useEffect(() => {
         GetAllDetails();
     }, []);
@@ -19,16 +20,17 @@ const UserTrainingTable = () => {
     const GetAllDetails = () => {
         AdminService.getAllTrainingDetails()
             .then((d) => {
-                console.log(d.data.alldata);
                 const user = d.data.alldata.find((user) => user.Email === Email);
                 setUserDetails(user);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     };
 
     const [skills, setSkills] = useState([]);
+    const [submittedSkills, setSubmittedSkills] = useState([]);
+
     const handleAddSkill = () => {
         setSkills([...skills, ""]);
     };
@@ -45,26 +47,19 @@ const UserTrainingTable = () => {
         setSkills(updatedSkills);
     };
 
-    const handleSubmit = () => {
-        const skillSet = {
-            skills,
-        };
-
-        axios.post('http://localhost:8080/Skills', skillSet)
-        .then((response) => {
-        console.log('Skills added', response.data);
-        // Handle any further actions after successful skill submission
-        toast.success('Skills submitted successfully');
-        })
-        .catch((error) => {
-            console.error('Error adding skills:', error);
-            if (error.response) {
-                console.error('Response Data:', error.response.data);
-                console.error('Response Status:', error.response.status);
+    const handleSubmit = async () => {
+        try {
+            const response = await AdminService.skills(userDetails.Email, skills);
+            if (response.data.message === 'Skill added successfully') {
+                toast.success('Skills added successfully');
+                setSkills([]); // Clear the skills array after successful submission
+            } else {
+                toast.error('Failed to add skills');
             }
-            // Handle error cases
-            toast.error('Error submitting skills');
-        });
+        } catch (error) {
+            console.error(error);
+            toast.error('An error occurred while adding skills');
+        }
     };
 
     return (
@@ -78,30 +73,41 @@ const UserTrainingTable = () => {
                     <div className="profile-header">
                         <h2>{userDetails.FullName}</h2>
                         <p>{userDetails.Designation}</p>
+                        <div className="profile-details">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Id:</td>
+                                        <td>{userDetails.Id}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>{userDetails.Email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employee ID:</td>
+                                        <td>{userDetails.EmployeeId}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile:</td>
+                                        <td>{userDetails.Mobile}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Blood Group:</td>
+                                        <td>{userDetails.BloodGroup}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address:</td>
+                                        <td>{userDetails.Address}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div className="profile-details">
                         <table>
                             <tbody>
-                                <tr>
-                                    <td>Email:</td>
-                                    <td>{userDetails.Email}</td>
-                                </tr>
-                                <tr>
-                                    <td>Employee ID:</td>
-                                    <td>{userDetails.EmployeeId}</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile:</td>
-                                    <td>{userDetails.Mobile}</td>
-                                </tr>
-                                <tr>
-                                    <td>Blood Group:</td>
-                                    <td>{userDetails.BloodGroup}</td>
-                                </tr>
-                                <tr>
-                                    <td>Address:</td>
-                                    <td>{userDetails.Address}</td>
-                                </tr>
+                                {/* User details here */}
                             </tbody>
                         </table>
                     </div>

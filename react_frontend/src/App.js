@@ -4,7 +4,7 @@ import './style.css';
 import SignUpForm from './components/login/signup.js';
 import SignInForm from './components/login/signin.js';
 import UserTrainingTable from './components/UserTrainingTable/UserTrainingTable';
-
+// import UserSkillDetails from './components/UserTrainingTable/userSkills';
 function App() {
   return (
     <>
@@ -13,6 +13,7 @@ function App() {
           <Route path="/" element={<SignUpForm />} />
           <Route path="/signin" element={<SignInForm />} />
           <Route path='/user' element={<UserTrainingTable />}/>
+          {/* <Route path = 'skills' element={<UserSkillDetails/>}/> */}
         </Routes>
       </Router>
     </>

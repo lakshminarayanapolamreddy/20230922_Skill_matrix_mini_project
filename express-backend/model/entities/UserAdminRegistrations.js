@@ -1,3 +1,4 @@
+//express-backend\model\entities\UserAdminRegistrations.js
 module.exports=(sequelize,DataTypes)=>{
     const UAReg=sequelize.define("UserAdminRegistrations",{
        Id:{

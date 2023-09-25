@@ -4,12 +4,10 @@ const UA_table = db.UserAdminRegTable;
 const create_user_admin = async (req, res) => {
   console.log(req.body.name);
   const { name, empid ,email, password, designation, mobile, blood_group, address} = req.body;
-
   if (name && empid && password && email && designation && mobile && blood_group, address) {
     const email_pattern=/^[\w.-]+@jmangroup\.com$/
     const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9@#$%^&*!]{8,}$/
     const empid_pattern = /^JMD\w{3}$/
-
     try {
       // Check if a user with the same email already exists in the database
       const existingUser = await UA_table.findOne({ where: { Email: email }});
