@@ -11,6 +11,9 @@ const skills = async (email, skills) => {
     const addSkills = await axios.post(`${process.env.REACT_APP_PORTSERVER}/skills`, data);
     return addSkills;
 };
+ const userSkillDetails = async () =>{
+    const getUserSkills = await axios.get(`${process.env.REACT_APP_PORTSERVER}/userSkills`)
+    return getUserSkills;
+ }
 
-
-export default { getAllTrainingDetails, skills };
+export default { getAllTrainingDetails, skills, userSkillDetails};

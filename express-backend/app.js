@@ -24,7 +24,9 @@ app.use(cors())
 // All Custom Routers
 var userRouter = require('./routes/registration'); 
 var login=require('./routes/login');
+var userSkill = require('./routes/userSkillsRouter')
 app.use('/skills', skillsRoutes);
+app.use('/userSkills', userSkill)
 app.use('/', userRouter);
 app.use('/loginDetails',login)
 app.use('/admin',getRouter)

@@ -3,6 +3,7 @@ const Skills = db.Skills; // Replace with the actual model name for skills
 const UserAdminRegTable = db.UserAdminRegTable; // Replace with the actual model name for user registrations
 const addSkill = async (req, res) => {
     const {email, skills} = req.body
+    console.log(email, "This is 1")
   if (email && skills) {
     try {
       // Check if the user with the specified email exists
@@ -12,13 +13,11 @@ const addSkill = async (req, res) => {
         return res.status(404).json({ message: 'User not found' });
       }
       // Store each skill in the database
-      console.log("ALmost")
       for (let a of skills) {
         Skills.create({
           Email:email,
           Skill: a
         });
-       
       }
       res.status(201).json({ message: 'Skill added successfully' });
     } catch (error) {

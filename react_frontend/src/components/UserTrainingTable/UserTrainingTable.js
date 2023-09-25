@@ -1,4 +1,3 @@
-// react_frontend/src/components/UserTrainingTable/UserTrainingTable.js
 import React, { useState, useEffect } from 'react';
 import './UserTrainingTable.css';
 import SideNav from '../side_nav/side_nav';
@@ -12,25 +11,34 @@ const UserTrainingTable = () => {
     const cookies = new Cookies();
     const Email = cookies.get("Email");
     const [userDetails, setUserDetails] = useState({});
+    const [userSkills, setUserSkills] = useState([]);
 
     useEffect(() => {
         GetAllDetails();
+        userAddedSkills();
     }, []);
 
     const GetAllDetails = () => {
-        AdminService.getAllTrainingDetails()
-            .then((d) => {
-                const user = d.data.alldata.find((user) => user.Email === Email);
-                setUserDetails(user);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+        AdminService.getAllTrainingDetails().then((d) => {
+            const user = d.data.alldata.find((user) => user.Email === Email);
+            setUserDetails(user);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+    };
+
+    const userAddedSkills = () => {
+        AdminService.userSkillDetails().then((d) => {
+            const user = d.data.alldata.find((user) => user.Email === Email);
+            setUserSkills(user?.Skills || []);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     };
 
     const [skills, setSkills] = useState([]);
-    const [submittedSkills, setSubmittedSkills] = useState([]);
-
     const handleAddSkill = () => {
         setSkills([...skills, ""]);
     };
@@ -50,6 +58,7 @@ const UserTrainingTable = () => {
     const handleSubmit = async () => {
         try {
             const response = await AdminService.skills(userDetails.Email, skills);
+            console.log(userDetails.Email)
             if (response.data.message === 'Skill added successfully') {
                 toast.success('Skills added successfully');
                 setSkills([]); // Clear the skills array after successful submission
@@ -105,11 +114,12 @@ const UserTrainingTable = () => {
                         </div>
                     </div>
                     <div className="profile-details">
-                        <table>
-                            <tbody>
-                                {/* User details here */}
-                            </tbody>
-                        </table>
+                        <h2>User's Added Skills:</h2>
+                        <ul>
+                            {userSkills.map((skill, index) => (
+                                <li key={index}>{skill}</li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             )}
