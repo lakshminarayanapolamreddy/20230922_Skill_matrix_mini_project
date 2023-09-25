@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const getAllTrainingDetails = async () => {
     const getAllTraining = await axios.get(`${process.env.REACT_APP_PORTSERVER}/admin`);
-    console.log('ok')
     return getAllTraining;
 };
 
@@ -12,7 +11,8 @@ const skills = async (email, skills) => {
     return addSkills;
 };
  const userSkillDetails = async () =>{
-    const getUserSkills = await axios.get(`${process.env.REACT_APP_PORTSERVER}/userSkills`)
+    const getUserSkills = await axios.get(`
+    ${process.env.REACT_APP_PORTSERVER}/userSkills`)
     return getUserSkills;
  }
 
