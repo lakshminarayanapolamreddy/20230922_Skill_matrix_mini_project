@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './UserTrainingTable.css';
 import SideNav from '../side_nav/side_nav';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AdminService from '../../services/AdminService';
 import Cookies from 'universal-cookie';
-import { toast } from 'react-toastify';
 import SkillsOfUser from './userSkills'
 
 const UserTrainingTable = () => {
@@ -27,50 +23,50 @@ const UserTrainingTable = () => {
     };
 
     return (
-        <div>
-            <div className="large-screen-nav">
+        <div className='profile-container'>
+            <div className="side-nav">
                 <SideNav />
             </div>
-            <h1 className="lbheading"><strong>Learning and Development</strong></h1>
-            <div><SkillsOfUser /></div>
-            {userDetails && (
-                <div className="profile-card">
-                    <div className="profile-header">
-                        <h2>{userDetails.FullName}</h2>
-                        <p>{userDetails.Designation}</p>
-                        <div className="profile-details">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Id:</td>
-                                        <td>{userDetails.Id}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email:</td>
-                                        <td>{userDetails.Email}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Employee ID:</td>
-                                        <td>{userDetails.EmployeeId}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mobile:</td>
-                                        <td>{userDetails.Mobile}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Blood Group:</td>
-                                        <td>{userDetails.BloodGroup}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address:</td>
-                                        <td>{userDetails.Address}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div className='profile-details'>
+                <div>
+                    {userDetails && (
+                        <div className="profile-card">
+                                <div class = 'name-and-designation'>
+                                    <h2 className='userName'>{userDetails.FullName}</h2>
+                                    <p className='user-designation'>{userDetails.Designation}</p>
+                                </div>
+                                <div className="profile-details">
+                                    <h5 className='user-details-heading'>User Details</h5>
+                                    <table className='userDetails'>
+                                        <tbody>
+                                            <tr>
+                                                <td className='td-heading'>Email:</td>
+                                                <td>{userDetails.Email}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className='td-heading'>Employee ID:</td>
+                                                <td>{userDetails.EmployeeId}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className='td-heading'>Mobile:</td>
+                                                <td>{userDetails.Mobile}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className='td-heading'>Blood Group:</td>
+                                                <td>{userDetails.BloodGroup}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className='td-heading'>Address:</td>
+                                                <td>{userDetails.Address}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                         </div>
-                    </div>
+                    )}
                 </div>
-            )}
+                <div className='skill-display'><SkillsOfUser /></div>
+            </div>
         </div>
     );
 };

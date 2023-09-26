@@ -5,18 +5,20 @@ import { toast } from 'react-toastify';
 
 const SkillsOfUser = () => {
     const cookies = new Cookies();
-    const Email = cookies.get("Email");
+    const userEmail = cookies.get("Email");
     const [userSkills, setUserSkills] = useState([]);
     const [skills, setSkills] = useState([]);
     const [userDetails, setUserDetails] = useState({});
+    const [showSubmitButton, setShowSubmitButton] = useState(false); // State for showing the submit button
+    
     useEffect(() => {
         GetAllDetails();
         userAddedSkills();
     }, []);
-    console.log(userDetails.Email, "is my Email")
+
     const GetAllDetails = () => {
         AdminService.getAllTrainingDetails().then((d) => {
-            const user = d.data.alldata.find((userDetails) => userDetails.Email === Email);
+            const user = d.data.alldata.find((userDetails) => userDetails.Email === userEmail);
             setUserDetails(user);
         })
         .catch((err) => {
@@ -25,18 +27,20 @@ const SkillsOfUser = () => {
     };
 
     const userAddedSkills = async () => {
-      try {
-          const response = await AdminService.userSkillDetails();
-          if (response.data.allSkillDetails) {
-              setUserSkills(response.data.allSkillDetails);
-          }
-      } catch (err) {
-          console.error(err);
-      }
-  };
+        try {
+            const response = await AdminService.userSkillDetails();
+            if (response.data.allSkillDetails) {
+                setUserSkills(response.data.allSkillDetails);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     const handleAddSkill = () => {
         setSkills([...skills, ""]);
+        // Show the submit button when the user clicks "Add Skills"
+        setShowSubmitButton(true);
     };
 
     const handleRemoveSkill = (index) => {
@@ -53,10 +57,13 @@ const SkillsOfUser = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await AdminService.addSkills(Email, skills);
+            const response = await AdminService.addSkills(userEmail, skills);
             if (response.data.message === 'Skill added successfully') {
                 toast.success('Skills added successfully');
-                setSkills([]); // Clear the skills array after successful submission
+                userAddedSkills();
+                setSkills([]);
+                // Hide the submit button after successful submission
+                setShowSubmitButton(false);
             } else {
                 toast.error('Failed to add skills');
             }
@@ -65,16 +72,28 @@ const SkillsOfUser = () => {
             toast.error('An error occurred while adding skills');
         }
     };
+    const filteredSkills = userSkills.filter((userSkill) => userSkill.Email === userEmail);
 
     return (
-        <div>
-            <div className="profile-details">
-                <h2>User's Added Skills:</h2>
-                <ul>
-                    {userSkills.map((skill, index) => (
-                        <li key={index}>{skill.Skill}</li>
-                    ))}
-                </ul>
+        <div className='skills-container'>
+            <div className="skill-details">
+                <table className='skill-table'>
+                    <thead>
+                        <tr>
+                            <th>
+                                <h4>Skills</h4>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr className='skill-list'>
+                            {filteredSkills.map((skill, index) => (
+                                <p key={index} className='skill-list-item'>{skill.Skill}</p>
+                            ))}
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div className='add-skill'>
                 <label>Add Your Skills</label>
@@ -93,6 +112,7 @@ const SkillsOfUser = () => {
                             value={skill}
                             placeholder={`Skill ${index + 1}`}
                             onChange={(e) => handleSkillChange(e, index)}
+                            required
                         />
                         <button
                             className="remove-skill-button"
@@ -103,7 +123,12 @@ const SkillsOfUser = () => {
                         </button>
                     </div>
                 ))}
-                <button onClick={handleSubmit} className="skill-submit-button">Submit Skills</button>
+                {/* Conditional rendering of the submit button */}
+                {showSubmitButton && (
+                    <div className='add-button-container'>
+                        <button onClick={handleSubmit} className="skill-submit-button">Submit Skills</button>
+                    </div>
+                )}
             </div>
         </div>
     );

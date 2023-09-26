@@ -157,9 +157,53 @@ body{
     color: #19105B;
     text-transform: uppercase;
 }
-.add-skill{
-    margin-top: 5%;
-}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    padding: 0 !important;
+    font-family: Arial;
+  }
+  
+  .overlay{
+    background: linear-gradient(#19105b, #472067, #7c3375, #FF6196);
+  }
+  
+  .sidenav {
+    height: 100vh;
+    width: 13.70%;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: rgb(8, 8, 71);
+    background: linear-gradient(#19105b, #472067, #7c3375, #FF6196);
+  }
+  
+  .sidenav .linkstonavigate {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    color: white;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .linkstonavigate {
+    margin: 0px !important;
+  }
+  
+  .sidenav .linkstonavigate:hover {
+    color: #f1f1f1;
+  }
+  
 .add-skill label{
     color: #2b7c97 !important;
     font-size: 15px;
@@ -183,14 +227,7 @@ body{
     height: 20px;
     color: #FF6196;
 }
-.skill-text-feild {
-    width: 60%;
-    height: 22px;
-    border: 1px solid #2b7c97;
-    background: #F7F9FB;
-    border-radius: 2px;
-    transition: all 0.2s; 
-}
+
 
 .skill-text-feild:focus {
     border: 1px solid #2b7c97;
@@ -218,5 +255,128 @@ body{
     text-align: left;
 }
 .profile-container{
+    
+    
+}
+.profile-details{
+   margin-left: 15%;
+   margin-right: 1%;
+
+}
+.profile-card{
     display: flex;
+    margin-top: 2%;
+    justify-content: space-between;
+}
+.name-and-designation{
+    
+}
+.userName{
+    color: #19105B;
+    font-family: "Arial" !important;
+    font-weight: 700;
+}
+.user-designation{
+    color: #2b7c97;
+    margin-top:-2%;
+    font-size: 14px;
+}
+.userDetails{
+    color:#19105B;
+}
+.user-details-heading{
+    text-align: center;
+    color: #FF6196;
+}
+.td-heading{
+    color: #6a6c71;
+    width: 100px;
+}
+.skills-container{
+    display: flex;
+    justify-content: flex-start;
+    width: 100vw !important;
+}
+.add-skill{
+    
+}
+.skill-details{
+    width: 25%;
+}
+.skill-list{
+    list-style: none;
+}
+.skill-list li{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: -5% !important;
+    text-align: left;
+}
+.skill-title{
+    color: #19105B;
+    align-items: center;
+}
+.skill-table th{
+    color: #19105B;
+    background-color:#f8ccdb;
+    align-items: center!important;
+    text-align: center;
+}
+.skill-table{
+    align-items: center !important;
+    text-align: center;
+    border-bottom: none !important;
+    width: 100%;
+    margin-right: 50% !important;
+}
+.skill-table tr{
+    border: 1px solid #f8ccdb;
+
+}
+.skill-table p{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #6a6c71;
+    border-top: 1px dashed #f8ccdb;
+    text-align: center;
+}
+.skill-display{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.add-skill{
+    margin-left: 36%;
+}
+.skill-submit-button{
+    margin-top: 100px !important;
+    color: white;
+    background: #19105B;
+    border: 1px solid #19105B !important;
+    height: 35px;
+    border-radius: 3px;
+    width: 130px;
+    cursor: pointer;
+    border: 1px solid #2b7c97;
+    margin: 0 !important; 
+
+}
+.skill-text-feild {
+    width: 300px;
+    height: 27px;
+    border: none;
+    outline: none;
+    background: #F7F9FB;
+    border-radius: 2px;
+    transition: all 0.2s; 
+}
+.skill-text-feild::placeholder {
+    color: #2b7c97;
+}
+.skill-row{
+    height: 31px;
+
+}
+.add-button-container{
+    margin-top: 20px;
 }
