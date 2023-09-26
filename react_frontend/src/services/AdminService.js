@@ -5,15 +5,15 @@ const getAllTrainingDetails = async () => {
     return getAllTraining;
 };
 
-const skills = async (email, skills) => {
+const addSkills = async (email, skills) => {
     const data = { email, skills };
     const addSkills = await axios.post(`${process.env.REACT_APP_PORTSERVER}/skills`, data);
     return addSkills;
 };
  const userSkillDetails = async () =>{
-    const getUserSkills = await axios.get(`
-    ${process.env.REACT_APP_PORTSERVER}/userSkills`)
+    const getUserSkills = await axios.get(`${process.env.REACT_APP_PORTSERVER}/userSkills`)
+   
     return getUserSkills;
  }
 
-export default { getAllTrainingDetails, skills, userSkillDetails};
+export default { getAllTrainingDetails, addSkills, userSkillDetails};

@@ -6,16 +6,14 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AdminService from '../../services/AdminService';
 import Cookies from 'universal-cookie';
 import { toast } from 'react-toastify';
+import SkillsOfUser from './userSkills'
 
 const UserTrainingTable = () => {
     const cookies = new Cookies();
     const Email = cookies.get("Email");
     const [userDetails, setUserDetails] = useState({});
-    const [userSkills, setUserSkills] = useState([]);
-
     useEffect(() => {
         GetAllDetails();
-        userAddedSkills();
     }, []);
 
     const GetAllDetails = () => {
@@ -28,55 +26,13 @@ const UserTrainingTable = () => {
         });
     };
 
-    const userAddedSkills = () => {
-        AdminService.userSkillDetails().then((d) => {
-            const user = d.data.alldata.find((user) => user.Email === Email);
-            setUserSkills(user?.Skills || []);
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-    };
-
-    const [skills, setSkills] = useState([]);
-    const handleAddSkill = () => {
-        setSkills([...skills, ""]);
-    };
-
-    const handleRemoveSkill = (index) => {
-        const updatedSkills = [...skills];
-        updatedSkills.splice(index, 1);
-        setSkills(updatedSkills);
-    };
-
-    const handleSkillChange = (event, index) => {
-        const updatedSkills = [...skills];
-        updatedSkills[index] = event.target.value;
-        setSkills(updatedSkills);
-    };
-
-    const handleSubmit = async () => {
-        try {
-            const response = await AdminService.skills(userDetails.Email, skills);
-            console.log(userDetails.Email)
-            if (response.data.message === 'Skill added successfully') {
-                toast.success('Skills added successfully');
-                setSkills([]); // Clear the skills array after successful submission
-            } else {
-                toast.error('Failed to add skills');
-            }
-        } catch (error) {
-            console.error(error);
-            toast.error('An error occurred while adding skills');
-        }
-    };
-
     return (
         <div>
             <div className="large-screen-nav">
                 <SideNav />
             </div>
             <h1 className="lbheading"><strong>Learning and Development</strong></h1>
+            <div><SkillsOfUser /></div>
             {userDetails && (
                 <div className="profile-card">
                     <div className="profile-header">
@@ -113,45 +69,8 @@ const UserTrainingTable = () => {
                             </table>
                         </div>
                     </div>
-                    <div className="profile-details">
-                        <h2>User's Added Skills:</h2>
-                        <ul>
-                            {userSkills.map((skill, index) => (
-                                <li key={index}>{skill}</li>
-                            ))}
-                        </ul>
-                    </div>
                 </div>
             )}
-            <div className='add-skill'>
-                <label>Add Your Skills</label>
-                <button
-                    className="add-skill-button"
-                    type="button"
-                    onClick={handleAddSkill}
-                >
-                    +
-                </button>
-                {skills.map((skill, index) => (
-                    <div key={index} className="skill-row">
-                        <input
-                            type="text"
-                            className='skill-text-feild'
-                            value={skill}
-                            placeholder={`Skill ${index + 1}`}
-                            onChange={(e) => handleSkillChange(e, index)}
-                        />
-                        <button
-                            className="remove-skill-button"
-                            type="button"
-                            onClick={() => handleRemoveSkill(index)}
-                        >
-                            <img className='delete-image' src='https://static-00.iconduck.com/assets.00/delete-emoji-409x512-y77jpzk2.png' alt='delete' />
-                        </button>
-                    </div>
-                ))}
-                <button onClick={handleSubmit} className="skill-submit-button">Submit Skills</button>
-            </div>
         </div>
     );
 };

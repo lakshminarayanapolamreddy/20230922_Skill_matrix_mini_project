@@ -8,7 +8,6 @@ const getUserSkillDetails = async (req, res) => {
         console.log("DoneDana");
         if (userSkills) {
             res.status(200).json({ message: "data Fetched", allSkillDetails: userSkills });
-            console.log(allSkillDetails);
         } else {
             res.status(200).json({ message: "data Not Fetched" });
         }
