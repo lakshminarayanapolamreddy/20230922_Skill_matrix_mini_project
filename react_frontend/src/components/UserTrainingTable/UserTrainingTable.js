@@ -31,7 +31,7 @@ const UserTrainingTable = () => {
                 <div>
                     {userDetails && (
                         <div className="profile-card">
-                                <div class = 'name-and-designation'>
+                                <div className='name-and-designation'>
                                     <h2 className='userName'>{userDetails.FullName}</h2>
                                     <p className='user-designation'>{userDetails.Designation}</p>
                                 </div>

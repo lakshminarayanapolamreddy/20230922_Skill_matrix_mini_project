@@ -74,26 +74,53 @@ const SkillsOfUser = () => {
     };
     const filteredSkills = userSkills.filter((userSkill) => userSkill.Email === userEmail);
 
+    const handleDeleteSkill = async (skillId,index) => {
+        try {
+            skillId = parseInt(skillId, 10);
+            console.log('skillId',skillId)
+            const response = await AdminService.deleteSkill(skillId);
+            if (response.status === 204) {
+                toast.success("Skill Deleted Successfully")
+                userAddedSkills();
+            } else {
+                toast.error("Skill deletion unsuccessful")
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
     return (
         <div className='skills-container'>
             <div className="skill-details">
-                <table className='skill-table'>
-                    <thead>
-                        <tr>
-                            <th>
-                                <h4>Skills</h4>
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr className='skill-list'>
-                            {filteredSkills.map((skill, index) => (
-                                <p key={index} className='skill-list-item'>{skill.Skill}</p>
-                            ))}
-                        </tr>
-                    </tbody>
-                </table>
+            <table className='skill-table'>
+                <thead className='table-head'>
+                    <tr>
+                        <th>
+                            <h4>Skills</h4>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody className='table-body'>
+                {filteredSkills.map((skill, index) => (
+                    <tr key={index} className="skill-list-item">
+                        <td className='skill-item'>
+                            <p className='skill-text'>{skill.Skill}</p>
+                        </td>
+                        <td className='skill-delete'>
+                            <button
+                                className="remove-skill-button"
+                                type="button"
+                                onClick={() => handleDeleteSkill(skill.Id,index)}
+                            >
+                                <img className='delete-image' src='https://static-00.iconduck.com/assets.00/delete-emoji-409x512-y77jpzk2.png' alt='delete' />
+                            </button>
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
             </div>
             <div className='add-skill'>
                 <label>Add Your Skills</label>

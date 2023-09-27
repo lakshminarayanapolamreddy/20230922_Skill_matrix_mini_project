@@ -1,7 +1,5 @@
 const db = require("../../entities");
 const allSkills = db.Skills;
-console.log("HERE MAN");
-
 const getUserSkillDetails = async (req, res) => {
     try {
         const userSkills = await allSkills.findAll();

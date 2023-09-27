@@ -25,19 +25,19 @@ app.use(cors())
 var userRouter = require('./routes/registration'); 
 var login=require('./routes/login');
 var userSkill = require('./routes/userSkillsRouter')
+var deleterouter = require('./routes/deleteSkillRoute');
 app.use('/skills', skillsRoutes);
 app.use('/userSkills', userSkill)
 app.use('/', userRouter);
 app.use('/loginDetails',login)
 app.use('/admin',getRouter)
-// catch 404 and forward to error handler
+app.use('/:skillId', deleterouter)
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

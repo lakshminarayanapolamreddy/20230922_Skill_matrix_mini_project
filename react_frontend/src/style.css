@@ -337,7 +337,6 @@ body {
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
     color: #6a6c71;
-    border-top: 1px dashed #f8ccdb;
     text-align: center;
 }
 .skill-display{
@@ -379,4 +378,14 @@ body {
 }
 .add-button-container{
     margin-top: 20px;
+}
+.skill-item{
+    height: 20px;
+}
+.skill-delete{
+    width: 10px;
+}
+.table-body td{
+    height: 20px !important;
+    align-items: left;
 }
